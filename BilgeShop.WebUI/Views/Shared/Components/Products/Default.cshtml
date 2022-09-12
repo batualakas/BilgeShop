@@ -1,0 +1,59 @@
+﻿@model List<ProductViewModel>
+
+    <div class="row">
+
+        @if(Model.Any()) // Model != null
+    {
+        
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 mb-3">
+
+<div class="card">
+    <div class="card-header">
+
+        @if(product.ImagePath == null)
+                        {
+                            <img class="mx-auto d-block" style="width:200px;height:200px" src="~/images/noImage.png" />
+                        }
+                        else
+                        {
+                            <img class="mx-auto d-block" style="width:200px;height:200px" src="~/images/products/@product.ImagePath" />
+                        }
+        </div>
+            <div class="card-body">
+              <p class="card-text fw-bold">@product.Name</p>
+              <p class="card-text fw-bold" style="color:red">@product.UnitPrice TL</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex">
+                  <button type="button" class="btn btn-sm btn-outline-success"><i class="bi bi-info-circle"></i> İncele</button>
+                  <button type="button" class="btn btn-sm btn-warning text-black ms-2"><i class="bi bi-cart"></i> Sepete Ekle</button>
+                </div>
+              
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+          </div>
+
+          
+        }
+
+
+    }
+
+    else
+    {
+        <div class="alert alert-danger">
+            Ürün Yok
+            </div>
+    }
+
+    </div>
+
+
+

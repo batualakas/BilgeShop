@@ -1,0 +1,28 @@
+Tablo Ýliþkileri: 
+
+One-to-One : -
+One-to-Many : Product / Category
+
+--> Selamlar Cahit, Configurations diye ayrý bir klasör yapmak yerine, bu projede konfigurasyonlarýmýzý Entity classlarýnýn altlarýna yazdýk.
+--> Tüm classlarda tek tek Id, CreatedDate , ModifiedDate gibi ; BaseEntity'den miras alýnan propertylere fluent validationlar yapmak yerine bunlarý BaseEntityConfiguration adý altýnda yaptýk ve burada Generic Interface'ten miras aldýk.
+
+
+
++ User Entity için
+
+FirstName ve LastName zorunlu , max 25 harf olsun.
+
+Email zorunlu ve max 75 harf
+
+Þifre zorunlu olsun.
+
+
+ÇOKA ÇOK BAÐLANTI
+Bir ürün bir çok kategoriye ait olabilir.
+Bir kategoride bir çok ürün olabilir. 
+
+BÝRE ÇOK BAÐLANTI
+Bir ürün bir kategoriye ait olabilir.
+Bir kategoride bir çok ürün bulunabilir.
+
+c

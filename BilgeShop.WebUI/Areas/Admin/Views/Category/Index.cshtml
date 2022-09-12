@@ -1,0 +1,79 @@
+﻿@model List<CategoryViewModel>
+
+<div class="container mt-5">
+
+    <div>
+
+        <div class="float-start"> <h2>Kategoriler</h2> </div>
+        <div class="float-end"> <a asp-area="Admin" asp-controller="Category" asp-action="New" class="btn btn-warning"><i class="bi bi-plus-square-fill"></i> Yeni Kategori</a> </div>
+
+    </div>
+
+    <div style="padding-top:75px">
+
+        <table id="productTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kategori Adı</th>
+                    <th style="width:700px">Açıklaması</th>
+                    <th style="width:200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>@category.Description</td>
+                        <td>
+
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Düzenle</a>
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-danger"><i class="bi bi-trash3"></i> Sil</a>
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+           @section Scripts {
+            <script>
+                $(document).ready(function() {
+                    $('#productTable').DataTable(
+                    {
+                        pageLength:5,
+                            language: {
+                                url:'//cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json'
+                            }
+                    }
+                        
+                    
+                    );
+                });
+            </script>
+        }
+
+  
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

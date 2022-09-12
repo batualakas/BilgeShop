@@ -1,0 +1,65 @@
+﻿
+<html>
+
+<head>
+    <title>BilgeShop | YZL8139</title>
+
+  <partial name="_CssPartial"></partial>
+
+    <style>
+        label.required:after {
+            content: "*\00a0";
+            color: red;
+            margin-left: 2px;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none fw-bold">
+                    BILGESHOP YÖNETİM PANELİ
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ms-5">
+                    <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link px-2 text-white">Pano</a></li>
+                    <li><a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link px-2 text-white">Kategoriler</a></li>
+                    <li><a asp-area="Admin" asp-controller="Product" asp-action="Index" class="nav-link px-2 text-white">Ürünler</a></li>
+
+                </ul>
+
+                <div class="ms-3 text-white mt-1">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-warning">BilgeShop</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer class="py-5 bg-dark text-white text-center mt-3 mt-auto">
+        YZL8139 | BilgeShop
+        <hr />
+        <p class="text-secondary">Tüm hakları saklıdır.</p>
+    </footer>
+
+<partial name="_JsPartial"></partial>
+
+    @await RenderSectionAsync("Scripts" , required: false)
+
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote(
+                {
+                    height:400
+                }
+            );
+        });
+
+    </script>
+
+</body>
+</html>

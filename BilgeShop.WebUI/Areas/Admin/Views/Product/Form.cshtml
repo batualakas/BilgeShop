@@ -1,0 +1,85 @@
+﻿@model ProductFormViewModel
+
+<div class="container mb-5" style="padding-top:40px">
+    <div class=row>
+        <div class="col-md-8 offset-2" style="padding-top:50px">
+            <div class="card" style="border:solid 2px">
+                <div class="card-header fw-bold fs-5">
+                    @(Model.Id == 0 ? "Ürün Ekleme Formu" : "ürün Düzenleme Formu")
+                </div>
+                <div class="card-body">
+                    <form asp-area="Admin" asp-controller="Product" asp-action="Save" method="post" enctype="multipart/form-data">
+
+                        @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.ErrorMessage
+                            </div>
+                        }
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-group mb-2">
+                            <label asp-for="Name" class="form-label required"></label>
+                            <input asp-for="Name" type="text" class="form-control" />
+                            <span class="text-danger fw-bold mt-1" asp-validation-for="Name"></span>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label asp-for="CategoryId" class="form-label required"></label>
+                            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories , "Id" , "Name"))" class="form-control">
+                                <option disabled selected>Seçiniz</option>
+                            </select>
+
+                            <span class="text-danger fw-bold mt-1" asp-validation-for="CategoryId"></span>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label asp-for="Description" class="form-label "></label>
+                            <textarea asp-for="Description" class="form-control summernote" placeholder="Açıklama giriniz..."></textarea>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label asp-for="UnitPrice" class="form-label "></label>
+                            <input asp-for="UnitPrice" type="text" class="form-control" />
+                            <span class="text-danger fw-bold mt-1" asp-validation-for="UnitPrice"></span>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label asp-for="UnitInStock" class="form-label "></label>
+                            <input asp-for="UnitInStock" type="number" class="form-control" />
+                            <span class="text-danger fw-bold mt-1" asp-validation-for="UnitInStock"></span>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label class="mb-1" asp-for="File"></label>
+
+                            @if (Model.Id != 0)
+                            {
+
+                                @if (!string.IsNullOrWhiteSpace(@ViewBag.Image))
+                                {
+                                    <div>
+                                        <img src="~/images/products/@ViewBag.Image" alt="Ürün Görseli" style="width:200px;height:200px" />
+                                    </div>
+                                }
+                                else
+                                {
+                                     <div>
+                                        <img src="~/images/noImage.png" alt="Ürün Görseli" style="width:200px;height:200px" />
+                                    </div>
+                                }
+                            }
+
+                            <input asp-for="File" type="file" class="form-control" />
+                        </div>
+
+                        <button type="submit" class="btn btn-warning mt-3 float-end">@(Model.Id == 0 ? "Ürün Ekle" : "Güncelle")</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

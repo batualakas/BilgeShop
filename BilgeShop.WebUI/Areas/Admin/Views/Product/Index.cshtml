@@ -1,0 +1,145 @@
+﻿@model List<ProductViewModel>
+<div class="container mt-5">
+
+    <div>
+
+        <div class="float-start"> <h2>Ürünler</h2> </div>
+        <div class="float-end"> <a asp-area="Admin" asp-controller="Product" asp-action="New" class="btn btn-warning"><i class="bi bi-plus-square-fill"></i> Yeni Ürün</a> </div>
+
+    </div>
+
+    <div style="padding-top:75px; padding-bottom:75px">
+
+        <table id="productTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:300px"></th>
+                    <th style="width:400px">Ürün Adı</th>
+                    <th style="width:200px">Birim Fiyatı</th>
+                    <th style="width:400px; text-align:center">Stok Miktarı</th>
+                    <th style="width:200px">Kategori</th>
+                    <th style="width:200px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>
+
+                            @if (string.IsNullOrWhiteSpace(product.ImagePath))
+                            {
+                                <img src="~/images/noImage.png" alt="No Image" style="width:100px; height:100px;" />
+                            }
+                            else
+                            {
+                                <a href="~/images/products/@product.ImagePath" data-lightbox="@product.Id" data-title="@product.Name">
+                                    <img src="~/images//products/@product.ImagePath" alt="@product.Name" style="width:100px; height:100px;" />
+                                </a>
+                            }
+                        </td>
+                        <td>@product.Name</td>
+                        <td>@product.UnitPrice TL</td>
+                        <td style="text-align:center">@product.UnitInStock</td>
+                        <td>@product.CategoryName</td>
+                        <td>
+
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Düzenle</a>
+                            <a href="#" data-id="@product.Id" class="btn btn-sm btn-danger delete"><i class="bi bi-trash3"></i> Sil</a>
+
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+        @section Scripts {
+            <script>
+                $(document).ready(function() {
+                    $('#productTable').DataTable(
+                        {
+                            pageLength: 5,
+                            language: {
+                                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json'
+                            }
+                        }
+
+
+                    );
+                });
+
+                $('#productTable .delete').click(function(e) {
+                    e.preventDefault();
+
+                    var productId = $(this).data('id');
+
+                    Swal.fire({
+                        title: 'Emin misiniz?',
+                        text: "Dikkat ! Ürün silinecektir.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Onaylıyorum.',
+                        cancelButtonText: 'İptal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "/admin/product/delete/" + productId,
+                                method: "GET"
+                            }).done(function() {
+                                Swal.fire('Silindi!', 'Ürün başarıyla silindi.', "success")
+                                    .then(() => {
+                                        window.location.reload()
+                                    });
+                            }).fail(function() {
+                                Swal.fire("Hata!", "Bir hata oluştu, ürün silinemedi.", "error")
+                            });
+                        }
+                    })
+                });
+
+                // OK butonunu textini değiştir.
+
+
+
+
+
+
+
+
+
+
+                lightbox.option({
+                    'resizeDuration': 200,
+                    'wrapAround': true,
+                    'maxWidth': 500,
+                    'maxHeight': 500
+
+                })
+
+
+            </script>
+        }
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
